@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Order } from './entities/order.entity';
 import { OrderHttpController } from './order.http.controller';
 import { OrderRabbitMQController } from './order.rabbitmq.controller';
 import { OrderService } from './order.service';
@@ -24,6 +26,7 @@ import { OrderService } from './order.service';
         inject: [ConfigService],
       },
     ]),
+    TypeOrmModule.forFeature([Order]),
   ],
   controllers: [OrderRabbitMQController, OrderHttpController],
   providers: [OrderService],

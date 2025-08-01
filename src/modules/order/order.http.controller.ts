@@ -7,7 +7,7 @@ export class OrderHttpController {
   constructor(private readonly orderService: OrderService) { }
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.addMessage(createOrderDto);
+  async create(@Body() createOrderDto: CreateOrderDto) {
+    return this.orderService.create(createOrderDto);
   }
 }

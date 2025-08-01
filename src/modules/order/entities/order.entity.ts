@@ -2,14 +2,19 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum OrderStatus {
   CREATED = 'created',
-  SHIPPED = 'shipped',
-  CANCELED = 'canceled',
+  PENDING = 'pending',
 }
 
 @Entity('orders')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  email?: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  phone?: string;
 
   @Column({ type: 'enum', enum: OrderStatus })
   status: OrderStatus;
