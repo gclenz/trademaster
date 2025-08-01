@@ -1,18 +1,18 @@
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    depends_on:
-      - postgres
-      - rabbitmq
-    ports:
-      - "3000:3000"
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/trademaster
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
-    networks:
-      - app-network
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.dev
+  #   depends_on:
+  #     - postgres
+  #     - rabbitmq
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     DATABASE_URL: postgresql://postgres:postgres@postgres:5432/trademaster
+  #     RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+  #   networks:
+  #     - app-network
 
   postgres:
     image: postgres:17
