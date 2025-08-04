@@ -34,6 +34,7 @@ export class OrderService {
         phone: createOrderDto.phone,
       },
     });
+    return { id: orderId }
   }
 
   async update(data: UpdateOrderDto) {

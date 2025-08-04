@@ -8,7 +8,7 @@ export class NotificationService {
     return this.getStrategy(createNotificationDto.type, createNotificationDto);
   }
 
-  getStrategy(type: NotificationType, dto: SendNotificationDto) {
+  private getStrategy(type: NotificationType, dto: SendNotificationDto) {
     switch (type) {
       case NotificationType.EMAIL:
         return this.sendEmail(dto);
