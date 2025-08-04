@@ -1,7 +1,7 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,7 +13,10 @@ async function bootstrap() {
       urls: [process.env.AMQP_URL as string],
       queue: 'trademaster',
       queueOptions: {
-        durable: false,
+        durable: true,
+        arguments: {
+          'x-dead-letter-exchange': 'retry_exchange',
+        },
       },
     },
   });

@@ -19,7 +19,10 @@ import { OrderService } from './order.service';
             urls: [configService.get('AMQP_URL') as string],
             queue: 'trademaster',
             queueOptions: {
-              durable: false,
+              durable: true,
+              arguments: {
+                'x-dead-letter-exchange': 'retry_exchange',
+              },
             },
           },
         }),
