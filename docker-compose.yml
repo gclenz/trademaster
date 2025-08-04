@@ -4,15 +4,39 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - postgres
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/trademaster
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: trademaster
+      AMQP_URL: amqp://guest:guest@rabbitmq:5672
     networks:
       - app-network
+
+  migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: ["pnpm", "exec", "typeorm", "--dataSource", "dist/data-source.js", "migration:run"]
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASS: postgres
+      DB_NAME: trademaster
+    networks:
+      - app-network
+    restart: 'no'
 
   postgres:
     image: postgres:17
@@ -26,6 +50,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d trademaster"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 
   rabbitmq:
     image: rabbitmq:4.1-management
@@ -38,6 +68,11 @@ services:
       RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_predefined_queues definitions.json"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

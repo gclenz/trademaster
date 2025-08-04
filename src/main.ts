@@ -1,11 +1,14 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import 'dotenv/config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
+  console.log(process.env.AMQP_URL);
+
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.RMQ,
@@ -18,6 +21,10 @@ async function bootstrap() {
         arguments: {
           'x-dead-letter-exchange': 'retry_exchange',
         },
+      },
+      socketOptions: {
+        heartbeatIntervalInSeconds: 5, // Set a heartbeat interval
+        reconnectTimeInSeconds: 5, // Set a reconnect time
       },
     },
   });

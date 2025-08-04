@@ -1,14 +1,31 @@
+{
+  "rabbit_version": "4.1",
+  "users": [],
+  "vhosts": [],
+  "permissions": [],
+  "parameters": [],
+  "policies": [],
+  "queues": [
     {
-      "rabbit_version": "4.1",
-      "queues": [
-        {
-          "name": "trademaster",
-          "vhost": "/",
-          "durable": true,
-          "auto_delete": false,
-          "arguments": {}
-        }
-      ],
-      "exchanges": [],
-      "bindings": []
+      "name": "trademaster",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-dead-letter-exchange": "retry_exchange"
+      }
     }
+  ],
+  "exchanges": [
+    {
+      "name": "retry_exchange",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": []
+}

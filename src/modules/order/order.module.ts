@@ -24,6 +24,10 @@ import { OrderService } from './order.service';
                 'x-dead-letter-exchange': 'retry_exchange',
               },
             },
+            socketOptions: {
+              heartbeatIntervalInSeconds: 5,
+              reconnectTimeInSeconds: 5,
+            },
           },
         }),
         inject: [ConfigService],

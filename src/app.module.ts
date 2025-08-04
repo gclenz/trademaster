@@ -22,6 +22,10 @@ import { OrderModule } from './modules/order/order.module';
         password: configService.get('DB_PASS'),
         database: configService.get('DB_NAME'),
         entities: [Order],
+        migrationsRun: true,
+        migrations: [process.env.NODE_ENV === 'production'
+          ? './**/migration/**/*.js'
+          : './**/migration/**/*.ts'],
       }),
       inject: [ConfigService],
     }),
