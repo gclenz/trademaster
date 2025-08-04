@@ -12,6 +12,7 @@ async function bootstrap() {
     options: {
       urls: [process.env.AMQP_URL as string],
       queue: 'trademaster',
+      noAck: false,
       queueOptions: {
         durable: true,
         arguments: {

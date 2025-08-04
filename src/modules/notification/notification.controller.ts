@@ -30,7 +30,7 @@ export class NotificationController {
       if (retryCount >= this.MAX_RETRIES) {
         channel.nack(originalMsg, false, false);
       } else {
-        channel.nack(originalMsg, false, false);
+        channel.nack(originalMsg, false, true);
       }
     }
   }
