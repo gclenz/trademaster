@@ -23,8 +23,8 @@ async function bootstrap() {
         },
       },
       socketOptions: {
-        heartbeatIntervalInSeconds: 5, // Set a heartbeat interval
-        reconnectTimeInSeconds: 5, // Set a reconnect time
+        heartbeatIntervalInSeconds: 5,
+        reconnectTimeInSeconds: 5,
       },
     },
   });
