@@ -63,9 +63,8 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-          - ./definitions.json:/etc/rabbitmq/definitions.json
-    environment:
-      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_predefined_queues definitions.json"
+      - ./definitions.json:/opt/definitions.json:ro
+      - ./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
     networks:
       - app-network
     healthcheck:

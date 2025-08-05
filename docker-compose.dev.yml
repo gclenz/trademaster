@@ -28,7 +28,7 @@ services:
       - app-network
 
   rabbitmq:
-    image: rabbitmq:4.1-management
+    image: rabbitmq:management
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -37,6 +37,9 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+    volumes:
+      - ./definitions.json:/opt/definitions.json:ro
+      - ./rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
     networks:
       - app-network
 
