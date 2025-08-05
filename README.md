@@ -15,7 +15,9 @@ $ docker compose up --build -d
 # e2e tests
 ```
 $ pnpm run test:watch
+```
 
+```
 # test coverage
 $ pnpm run test:cov
 ```
