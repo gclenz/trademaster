@@ -1,6 +1,4 @@
-## Description
-
-Desafio técnico para a Trademaster.
+# Desafio técnico para a Trademaster.
 
 ## Como rodar
 
@@ -42,3 +40,11 @@ curl --request POST \
 
 Optei por manter todo o fluxo em uma aplicação no intuito de reduzir o consumo de recursos, já que é um projeto enxuto.
 Também mantive os testes bem minimalistas, porém assertivos. O teste coverage é de mais ou menos 80%. Como foi usado o [Testcontainers](https://testcontainers.com/), a garantia de que a aplicação vai se comportar da mesma maneira em produção é alta.
+
+## Stack
+NestJS
+PostgreSQL
+RabbitMQ
+Testcontainers
+Docker/Compose
+pnpm
